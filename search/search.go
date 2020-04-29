@@ -10,7 +10,7 @@ import (
 func RetrieveLinks(file io.Reader) *[]Result {
 	doc, err := html.Parse(file)
 	if err != nil {
-		log.Fatalln("Cannot parse HTML file")
+		log.Fatalln("Cannot parse HTML file", err, file)
 	}
 	results := make([]Result, 0, 10)
 
