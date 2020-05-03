@@ -14,7 +14,26 @@ func TestRetrieveLinks(t *testing.T) {
 		if len(*results) != len(e) {
 			t.Errorf("Found %d number of records but should have found %d", len(*results), len(e))
 		}
+		for _, expected := range e {
+			var foundLink bool
+			var foundText bool
+			for _, got := range *results {
+				if expected.link == got.link {
+					foundLink = true
+					if expected.text == got.text {
+						foundText = true
+					}
+					break
+				}
+			}
+			if !foundLink {
+				t.Errorf("Didn't find record having link: [%s].", expected.link)
+			}
+			if !foundText {
+				t.Errorf("Didn't find record having text: [%s].", expected.text)
+			}
 
+		}
 	}
 }
 
