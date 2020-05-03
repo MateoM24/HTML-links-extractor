@@ -24,8 +24,8 @@ func findLinkInNodes(n *html.Node, results *[]Result) {
 		for _, att := range n.Attr {
 			if att.Key == "href" {
 				finding := Result{}
-				finding.link = att.Val
-				finding.text = findText(n)
+				finding.Link = att.Val
+				finding.Text = findText(n)
 				*results = append(*results, finding)
 			}
 
@@ -47,5 +47,5 @@ func findText(n *html.Node) string {
 }
 
 type Result struct {
-	link, text string
+	Link, Text string
 }

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	const fileName = "testresources/ex1.html"
+	const fileName = "testresources/ex2.html"
 	file, err := os.Open(fileName)
 	if err != nil {
 		log.Fatalln("Cannot open file:", fileName)
