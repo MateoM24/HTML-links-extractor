@@ -17,7 +17,7 @@ func TestRetrieveLinks(t *testing.T) {
 		for _, expected := range e {
 			var foundLink bool
 			for _, got := range *results {
-				if expected.Link == got.Link {
+				if expected.Url == got.Url {
 					foundLink = true
 					if expected.Text == got.Text {
 						break
@@ -27,25 +27,25 @@ func TestRetrieveLinks(t *testing.T) {
 				}
 			}
 			if !foundLink {
-				t.Errorf("Didn't find record having link: [%s].", expected.Link)
+				t.Errorf("Didn't find record having link: [%s].", expected.Url)
 			}
 		}
 	}
 }
 
-func prepareScenarios() map[io.Reader][]Result {
-	scenarios := make(map[io.Reader][]Result)
-	scenarios[getFile("../testresources/ex1.html")] = []Result{{Link: "/other-page", Text: "A link to another page"}}
-	scenarios[getFile("../testresources/ex2.html")] = []Result{
-		{Link: "https://www.twitter.com/joncalhoun", Text: "Check me out on twitter"},
-		{Link: "https://github.com/gophercises", Text: "Gophercises is on Github"},
+func prepareScenarios() map[io.Reader][]Link {
+	scenarios := make(map[io.Reader][]Link)
+	scenarios[getFile("../testresources/ex1.html")] = []Link{{Url: "/other-page", Text: "A link to another page"}}
+	scenarios[getFile("../testresources/ex2.html")] = []Link{
+		{Url: "https://www.twitter.com/joncalhoun", Text: "Check me out on twitter"},
+		{Url: "https://github.com/gophercises", Text: "Gophercises is on Github"},
 	}
-	scenarios[getFile("../testresources/ex3.html")] = []Result{
-		{Link: "#", Text: "Login"},
-		{Link: "/lost", Text: "Lost? Need help?"},
-		{Link: "https://twitter.com/marcusolsson", Text: "@marcusolsson"},
+	scenarios[getFile("../testresources/ex3.html")] = []Link{
+		{Url: "#", Text: "Login"},
+		{Url: "/lost", Text: "Lost? Need help?"},
+		{Url: "https://twitter.com/marcusolsson", Text: "@marcusolsson"},
 	}
-	scenarios[getFile("../testresources/ex4.html")] = []Result{{Link: "/dog-cat", Text: "dog cat"}}
+	scenarios[getFile("../testresources/ex4.html")] = []Link{{Url: "/dog-cat", Text: "dog cat"}}
 	return scenarios
 }
 

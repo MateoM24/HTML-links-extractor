@@ -8,24 +8,24 @@ import (
 	"golang.org/x/net/html"
 )
 
-func RetrieveLinks(file io.Reader) *[]Result {
+func RetrieveLinks(file io.Reader) *[]Link {
 	doc, err := html.Parse(file)
 	if err != nil {
 		log.Fatalln("Cannot parse HTML file", err, file)
 	}
-	results := make([]Result, 0, 10)
+	results := make([]Link, 0, 10)
 
 	findLinkInNodes(doc, &results)
 	return &results
 
 }
 
-func findLinkInNodes(n *html.Node, results *[]Result) {
+func findLinkInNodes(n *html.Node, results *[]Link) {
 	if n.Type == html.ElementNode && n.Data == "a" {
 		for _, att := range n.Attr {
 			if att.Key == "href" {
-				finding := Result{}
-				finding.Link = att.Val
+				finding := Link{}
+				finding.Url = att.Val
 				finding.Text = findText(n)
 				*results = append(*results, finding)
 			}
@@ -52,6 +52,6 @@ func findText(n *html.Node) string {
 	return ""
 }
 
-type Result struct {
-	Link, Text string
+type Link struct {
+	Url, Text string
 }
