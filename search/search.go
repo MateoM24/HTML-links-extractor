@@ -13,11 +13,9 @@ func RetrieveLinks(file io.Reader) *[]Link {
 	if err != nil {
 		log.Fatalln("Cannot parse HTML file", err, file)
 	}
-	results := make([]Link, 0, 10)
-
-	findLinkInNodes(doc, &results)
-	return &results
-
+	links := make([]Link, 0, 10)
+	findLinkInNodes(doc, &links)
+	return &links
 }
 
 func findLinkInNodes(n *html.Node, results *[]Link) {
@@ -29,7 +27,6 @@ func findLinkInNodes(n *html.Node, results *[]Link) {
 				finding.Text = findText(n)
 				*results = append(*results, finding)
 			}
-
 		}
 	}
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
@@ -44,7 +41,6 @@ func findText(n *html.Node) string {
 			return strings.TrimSpace(strings.Join([]string{strings.TrimSpace(n.Data), findText(sibling)}, " "))
 		}
 		return strings.TrimSpace(n.Data)
-
 	}
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
 		return findText(c)
