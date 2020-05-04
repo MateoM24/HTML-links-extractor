@@ -41,11 +41,11 @@ func prepareScenarios() map[io.Reader][]Result {
 		{Link: "https://github.com/gophercises", Text: "Gophercises is on Github"},
 	}
 	scenarios[getFile("../testresources/ex3.html")] = []Result{
-		{Link: "#", Text: "Login "},
+		{Link: "#", Text: "Login"},
 		{Link: "/lost", Text: "Lost? Need help?"},
 		{Link: "https://twitter.com/marcusolsson", Text: "@marcusolsson"},
 	}
-	scenarios[getFile("../testresources/ex4.html")] = []Result{{Link: "/dog-cat", Text: "dog cat "}}
+	scenarios[getFile("../testresources/ex4.html")] = []Result{{Link: "/dog-cat", Text: "dog cat"}}
 	return scenarios
 }
 

@@ -3,6 +3,7 @@ package search
 import (
 	"io"
 	"log"
+	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -38,7 +39,12 @@ func findLinkInNodes(n *html.Node, results *[]Result) {
 
 func findText(n *html.Node) string {
 	if n.Type == html.TextNode {
-		return n.Data
+		sibling := n.NextSibling
+		if sibling != nil {
+			return strings.TrimSpace(strings.Join([]string{strings.TrimSpace(n.Data), findText(sibling)}, " "))
+		}
+		return strings.TrimSpace(n.Data)
+
 	}
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
 		return findText(c)
